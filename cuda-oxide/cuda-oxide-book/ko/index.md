@@ -139,6 +139,7 @@ gpu-programming/closures-and-generics
 :caption: 비동기 프로그래밍
 
 async-programming/overlapping-transfers-and-compute
+:::
 
 :::{toctree}
 :hidden:
@@ -149,4 +150,12 @@ appendix/building-from-source
 appendix/cuda-cpp-comparison
 appendix/ecosystem
 appendix/glossary
+:::
+
+:::{toctree}
+:hidden:
+:maxdepth: 2
+:caption: 컴파일러 내부
+
+compiler/fuzzing-and-differential-testing
 :::
