@@ -122,6 +122,7 @@ getting-started/hello-gpu
 :caption: 고급 GPU 기능
 
 advanced/cluster-programming
+advanced/matrix-multiply-accelerators
 advanced/tensor-memory-accelerator
 advanced/warp-level-programming
 :::
