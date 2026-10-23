@@ -172,4 +172,5 @@ gpu-safety/bounds-checks
 :caption: 컴파일러 내부
 
 compiler/fuzzing-and-differential-testing
+compiler/rustc-public
 :::
