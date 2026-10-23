@@ -144,6 +144,7 @@ gpu-programming/closures-and-generics
 async-programming/overlapping-transfers-and-compute
 async-programming/scheduling-and-streams
 async-programming/combinators-and-composition
+async-programming/the-device-operation-model
 async-programming/concurrent-execution
 :::
 
