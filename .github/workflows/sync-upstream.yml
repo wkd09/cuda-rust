@@ -28,11 +28,10 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git remote add upstream https://github.com/NVIDIA/cuda-rust.git
           git fetch upstream main
+          git fetch origin sync/upstream-main:refs/remotes/origin/sync/upstream-main || true
           git checkout -B sync/upstream-main origin/main
           git merge --no-edit upstream/main
           git push --force-with-lease origin sync/upstream-main
-        env:
-          GH_TOKEN: ${{ github.token }}
 
       - name: Open or refresh the upstream update pull request
         run: |
