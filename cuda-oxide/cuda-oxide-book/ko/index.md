@@ -79,7 +79,7 @@ fn main() {
 [필수 환경](getting-started/installation.md)을 준비한 다음 `cargo oxide run vecadd`로 빌드하고 실행하세요. 같은 launch-contract 패턴은 `cargo oxide new`가 만드는 프로젝트의 기본 구조이기도 합니다. 자세한 설명은 [첫 GPU 커널 작성하기](getting-started/hello-gpu.md)를 참고하세요.
 
 :::{note}
-`#[cuda_module]`은 생성된 디바이스 산출물을 호스트 실행 파일에 포함하고 타입이 지정된 `kernels::load` 함수와 커널마다 하나의 실행 메서드를 생성합니다. 커널 인자는 타입 검사를 거칩니다. `#[launch_contract]`를 선언하면 [커널 실행](gpu-programming/launching-kernels.md) 장에서 다루는 안전한 `PreparedLaunch` 경로(`prepare_*`와 타입이 지정된 실행 메서드)를 사용할 수 있습니다. 계약에서 다루지 않는 일회성 실행 형상이 필요하면 원시 `LaunchConfig`를 사용하는 unsafe 호출도 가능합니다. 특정 sidecar 산출물을 불러오거나 사용자 지정 실행 코드를 만들어야 한다면 더 낮은 수준의 `load_kernel_module` 및 unsafe `cuda_launch!` API도 사용할 수 있습니다.
+`#[cuda_module]`은 생성된 디바이스 산출물을 호스트 실행 파일에 포함하고 타입이 지정된 `kernels::load` 함수와 커널마다 하나의 실행 메서드를 생성합니다. 커널 인자는 타입 검사를 거칩니다. `#[launch_contract]`를 선언하면 [커널 실행](https://nvidia.github.io/cuda-rust/cuda-oxide/gpu-programming/launching-kernels.html) 장에서 다루는 안전한 `PreparedLaunch` 경로(`prepare_*`와 타입이 지정된 실행 메서드)를 사용할 수 있습니다. 계약에서 다루지 않는 일회성 실행 형상이 필요하면 원시 `LaunchConfig`를 사용하는 unsafe 호출도 가능합니다. 특정 sidecar 산출물을 불러오거나 사용자 지정 실행 코드를 만들어야 한다면 더 낮은 수준의 `load_kernel_module` 및 unsafe `cuda_launch!` API도 사용할 수 있습니다.
 :::
 
 ---
@@ -90,7 +90,7 @@ fn main() {
 :gutter: 3
 
 :::{grid-item-card} 🦀 GPU에서 Rust 사용하기
-Rust의 타입 시스템과 소유권 모델로 GPU 커널을 작성합니다. 안전성을 중요한 목표로 삼되 GPU에는 별도의 주의 사항이 있으므로 [GPU 안전성 모델](gpu-safety/the-safety-model.md)을 확인하세요.
+Rust의 타입 시스템과 소유권 모델로 GPU 커널을 작성합니다. 안전성을 중요한 목표로 삼되 GPU에는 별도의 주의 사항이 있으므로 [GPU 안전성 모델](https://nvidia.github.io/cuda-rust/cuda-oxide/gpu-safety/the-safety-model.html)을 확인하세요.
 :::
 
 :::{grid-item-card} 💎 SIMT 컴파일러
@@ -126,9 +126,25 @@ advanced/cluster-programming
 
 :::{toctree}
 :hidden:
+:maxdepth: 2
+:caption: GPU 프로그래밍
+
+gpu-programming/execution-model
+:::
+
+:::{toctree}
+:hidden:
+:maxdepth: 2
+:caption: 비동기 프로그래밍
+
+async-programming/overlapping-transfers-and-compute
+
+:::{toctree}
+:hidden:
 :maxdepth: 1
 :caption: 부록
 
 appendix/cuda-cpp-comparison
 appendix/ecosystem
+appendix/glossary
 :::
