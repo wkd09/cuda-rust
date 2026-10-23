@@ -122,6 +122,7 @@ getting-started/hello-gpu
 :caption: 고급 GPU 기능
 
 advanced/cluster-programming
+advanced/tensor-memory-accelerator
 :::
 
 :::{toctree}
