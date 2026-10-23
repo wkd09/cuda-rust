@@ -173,4 +173,5 @@ gpu-safety/bounds-checks
 
 compiler/fuzzing-and-differential-testing
 compiler/rustc-public
+compiler/catalog-generated-intrinsics
 :::
