@@ -130,6 +130,7 @@ advanced/cluster-programming
 :caption: GPU 프로그래밍
 
 gpu-programming/execution-model
+gpu-programming/closures-and-generics
 :::
 
 :::{toctree}
