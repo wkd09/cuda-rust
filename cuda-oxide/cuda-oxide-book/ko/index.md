@@ -125,6 +125,7 @@ advanced/cluster-programming
 advanced/matrix-multiply-accelerators
 advanced/tensor-memory-accelerator
 advanced/warp-level-programming
+advanced/shared-memory-and-synchronization
 :::
 
 :::{toctree}
