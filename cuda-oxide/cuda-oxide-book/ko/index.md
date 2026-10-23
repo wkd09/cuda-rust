@@ -144,6 +144,7 @@ async-programming/overlapping-transfers-and-compute
 :maxdepth: 1
 :caption: 부록
 
+appendix/building-from-source
 appendix/cuda-cpp-comparison
 appendix/ecosystem
 appendix/glossary
