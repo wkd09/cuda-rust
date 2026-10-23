@@ -185,3 +185,11 @@ compiler/architecture-overview
 compiler/compiler-optimizations
 compiler/catalog-generated-intrinsics
 :::
+
+:::{toctree}
+:hidden:
+:maxdepth: 2
+:caption: 프로젝트
+
+projects/async-mlp-pipeline
+:::
