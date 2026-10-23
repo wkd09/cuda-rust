@@ -1,0 +1,47 @@
+name: Sync upstream
+
+on:
+  schedule:
+    - cron: "0 2 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: upstream-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Merge the latest NVIDIA main into a sync branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git remote add upstream https://github.com/NVIDIA/cuda-rust.git
+          git fetch upstream main
+          git checkout -B sync/upstream-main origin/main
+          git merge --no-edit upstream/main
+          git push --force-with-lease origin sync/upstream-main
+        env:
+          GH_TOKEN: ${{ github.token }}
+
+      - name: Open or refresh the upstream update pull request
+        run: |
+          if [ "$(gh pr list --head sync/upstream-main --base main --json number --jq 'length')" = "0" ]; then
+            gh pr create \
+              --base main \
+              --head sync/upstream-main \
+              --title "chore: sync NVIDIA cuda-rust main" \
+              --body "Automated weekly merge of NVIDIA/cuda-rust main. Review upstream changes before merging."
+          fi
+        env:
+          GH_TOKEN: ${{ github.token }}
