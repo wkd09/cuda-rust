@@ -134,6 +134,7 @@ advanced/warp-level-programming
 
 gpu-programming/execution-model
 gpu-programming/closures-and-generics
+gpu-programming/virtual-memory-and-peer-access
 :::
 
 :::{toctree}
