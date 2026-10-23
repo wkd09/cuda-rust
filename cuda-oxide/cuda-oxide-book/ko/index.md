@@ -185,6 +185,7 @@ compiler/architecture-overview
 compiler/compiler-optimizations
 compiler/catalog-generated-intrinsics
 compiler/mlir-dialects
+compiler/mir-importer
 :::
 
 :::{toctree}
