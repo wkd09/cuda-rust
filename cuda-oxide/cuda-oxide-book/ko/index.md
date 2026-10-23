@@ -184,6 +184,7 @@ compiler/rustc-codegen-cuda
 compiler/architecture-overview
 compiler/compiler-optimizations
 compiler/catalog-generated-intrinsics
+compiler/mlir-dialects
 :::
 
 :::{toctree}
