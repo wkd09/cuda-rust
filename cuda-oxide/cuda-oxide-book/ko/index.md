@@ -154,6 +154,7 @@ async-programming/concurrent-execution
 appendix/building-from-source
 appendix/cuda-cpp-comparison
 appendix/ecosystem
+appendix/supported-features
 appendix/glossary
 :::
 
