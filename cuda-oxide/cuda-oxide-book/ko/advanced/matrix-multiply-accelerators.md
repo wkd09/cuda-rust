@@ -10,12 +10,16 @@ WGMMA의 하드웨어 사양, 연산 모양, 원소 타입, 동기화 요구사�
 
 ---
 
-## 전체 구조```{figure} images/tensor-core-datapath.svg
+## 전체 구조
+
+```{figure} images/tensor-core-datapath.svg
 :align: center
 :width: 100%
 
 Hopper WGMMA와 Blackwell tcgen05의 데이터 경로입니다. 두 방식 모두 설명자를 통해 공유 메모리에서 피연산자를 읽습니다. WGMMA는 워프그룹 집합 방식으로 스레드별 레지스터에 누적합니다. tcgen05는 단일 스레드가 발행하고 전용 텐서 메모리(TMEM)에 누적합니다.
-```세대가 바뀌면서 피연산자는 연산 장치에 더 가까이 이동하고, 명령을 발행하는 범위는 넓어지며, 프로그래머는 더 큰 타일에 더 적은 명령을 작성하게 됩니다. cuda-oxide는 하나의 만능 추상화 대신 세대별 API로 이러한 변화를 반영합니다.
+```
+
+세대가 바뀌면서 피연산자는 연산 장치에 더 가까이 이동하고, 명령을 발행하는 범위는 넓어지며, 프로그래머는 더 큰 타일에 더 적은 명령을 작성하게 됩니다. cuda-oxide는 하나의 만능 추상화 대신 세대별 API로 이러한 변화를 반영합니다.
 
 ---
 
@@ -43,7 +47,9 @@ WGMMA는 항상 M=64(행)이고 N과 K는 원소 타입에 따라 다릅니다.
 
 ### cuda-oxide API 개요
 
-cuda-oxide는 하드웨어 명령에 직접 대응하는 저수준 intrinsic으로 WGMMA를 제공합니다. 일반적인 사용 패턴은 다음과 같습니다.```rust
+cuda-oxide는 하드웨어 명령에 직접 대응하는 저수준 intrinsic으로 WGMMA를 제공합니다. 일반적인 사용 패턴은 다음과 같습니다.
+
+```rust
 use cuda_device::wgmma::{
     make_smem_desc, wgmma_commit_group, wgmma_fence, wgmma_mma_m64n64k16_f32_bf16, wgmma_wait_group,
 };
@@ -65,7 +71,11 @@ unsafe {
 }
 
 // `acc` is now safe to observe.
-```BF16 m64n128 전체 대기 변형도 같은 동기화 규약을 사용하지만 스레드마다 누산기 값 64개를 사용합니다.```rust
+```
+
+BF16 m64n128 전체 대기 변형도 같은 동기화 규약을 사용하지만 스레드마다 누산기 값 64개를 사용합니다.
+
+```rust
 use cuda_device::wgmma::wgmma_mma_m64n128k16_f32_bf16;
 
 let mut wide_acc = [[0.0f32; 8]; 8];
@@ -75,7 +85,9 @@ unsafe {
     wgmma_commit_group();
     wgmma_wait_group::<0>();
 }
-```TF32에는 `wgmma_mma_m64n64k8_f32_tf32`를 사용합니다. Hopper의 TF32 WGMMA 하드웨어 연산 모양은 K=8이므로 K=16 TF32 호환 진입점은 지원되지 않습니다.
+```
+
+TF32에는 `wgmma_mma_m64n64k8_f32_tf32`를 사용합니다. Hopper의 TF32 WGMMA 하드웨어 연산 모양은 K=8이므로 K=16 TF32 호환 진입점은 지원되지 않습니다.
 
 ### 현재 cuda-oxide의 WGMMA 낮추기
 
@@ -87,7 +99,9 @@ unsafe {
 
 **정형화된 계수 K 루프.** 반복마다 MMA를 하나 실행하는 컴파일 시점 계수 BF16 또는 F16 m64n64 루프와 affine `u64` 설명자 재귀식에 대해 cuda-oxide는 루프 제어와 설명자 산술을 WGMMA 명령과 같은 수렴형 PTX 영역으로 이동합니다. 따라서 누산기는 K 루프 전에 한 번 읽고 루프 반복마다 왕복하는 대신 마지막 대기 뒤 한 번 저장합니다.
 
-**정적 부분 대기 파이프라인.** BF16 m64n64의 `wait_group<N>`에서 `N > 0`이면 서로 독립된 누산기 슬롯 `N + 1`개를 사용합니다. 그룹은 각각 커밋하며 가장 오래된 슬롯이 부분 대기로 안전해진 뒤에만 라운드 로빈으로 슬롯을 재사용합니다. 예를 들어 그룹 두 개를 다음처럼 겹쳐 실행할 수 있습니다.```text
+**정적 부분 대기 파이프라인.** BF16 m64n64의 `wait_group<N>`에서 `N > 0`이면 서로 독립된 누산기 슬롯 `N + 1`개를 사용합니다. 그룹은 각각 커밋하며 가장 오래된 슬롯이 부분 대기로 안전해진 뒤에만 라운드 로빈으로 슬롯을 재사용합니다. 예를 들어 그룹 두 개를 다음처럼 겹쳐 실행할 수 있습니다.
+
+```text
 wgmma_fence
 mma acc0
 commit_group
@@ -95,7 +109,9 @@ mma acc1
 commit_group
 wait_group<1>
 wait_group<0>
-```긴 파이프라인은 누산기를 재사용하기 전에 슬롯 일정을 반복하고 부분 대기합니다. 누산기 값이 융합 영역을 벗어나기 전 마지막 `wait_group<0>`은 필수입니다.
+```
+
+긴 파이프라인은 누산기를 재사용하기 전에 슬롯 일정을 반복하고 부분 대기합니다. 누산기 값이 융합 영역을 벗어나기 전 마지막 `wait_group<0>`은 필수입니다.
 
 선택은 의도적으로 fail-closed 방식입니다. 동적 부분 대기, 지원하지 않는 제어 흐름, 잘못된 누산기 일정, F16 부분 대기 모양, TF32 계수 루프 및 부분 대기 모양, m64n128 계수 루프 및 부분 대기 모양, 정형화되지 않은 F16/TF32/m64n128 누산기, 이전 K=16 TF32 호환 진입점은 비행 중인 누산기를 LLVM에 노출하는 대신 거부됩니다.
 
@@ -115,7 +131,9 @@ Blackwell은 **tcgen05**라는 근본적으로 다른 행렬 가속기를 도입
 
 ### TMEM — 텐서 메모리
 
-TMEM은 레지스터 파일과 나란히 있는 새로운 메모리 계층이며 행렬 누산을 전담합니다. 명시적으로 할당하고 해제해야 합니다.```rust
+TMEM은 레지스터 파일과 나란히 있는 새로운 메모리 계층이며 행렬 누산을 전담합니다. 명시적으로 할당하고 해제해야 합니다.
+
+```rust
 use cuda_device::SharedArray;
 use cuda_device::tcgen05::{TmemGuard, TmemReady, TmemUninit};
 
@@ -131,7 +149,9 @@ let tmem: TmemGuard<TmemReady, 128> = unsafe {
 
 // Deallocate (warp-collective, required before kernel exit)
 unsafe { tmem.dealloc(); }
-````TmemGuard`는 타입 상태를 사용합니다: `TmemUninit` → `alloc()` → `TmemReady` → `dealloc()` → `TmemDeallocated`. 타입 시스템이 할당 전에 TMEM을 사용하는 것과 해제를 잊는 것을 막습니다. 해제하지 않으면 하드웨어 리소스가 누수되고 오류가 발생합니다.
+```
+
+`TmemGuard`는 타입 상태를 사용합니다: `TmemUninit` → `alloc()` → `TmemReady` → `dealloc()` → `TmemDeallocated`. 타입 시스템이 할당 전에 TMEM을 사용하는 것과 해제를 잊는 것을 막습니다. 해제하지 않으면 하드웨어 리소스가 누수되고 오류가 발생합니다.
 
 `N_COLS` const 매개변수는 TMEM 타일 폭을 결정합니다. 일반적인 구성은 다음과 같습니다.
 
@@ -145,7 +165,9 @@ unsafe { tmem.dealloc(); }
 
 tcgen05는 MMA 명령 하나에 설명자 두 개를 사용합니다.
 
-**명령 설명자** — MMA 구성을 인코딩합니다.```rust
+**명령 설명자** — MMA 구성을 인코딩합니다.
+
+```rust
 use cuda_device::tcgen05::{Tcgen05ElementType, Tcgen05InstructionDescriptor, Tcgen05MmaShape};
 
 let idesc = Tcgen05InstructionDescriptor::builder()
@@ -153,7 +175,11 @@ let idesc = Tcgen05InstructionDescriptor::builder()
     .a_type(Tcgen05ElementType::F16)
     .b_type(Tcgen05ElementType::F16)
     .build();
-```**SMEM 설명자** — 공유 메모리의 피연산자 타일을 가리킵니다.```rust
+```
+
+**SMEM 설명자** — 공유 메모리의 피연산자 타일을 가리킵니다.
+
+```rust
 use cuda_device::tcgen05::{Tcgen05SmemDescriptor, Tcgen05SwizzleMode};
 
 let a_desc = Tcgen05SmemDescriptor::for_k_major(
@@ -162,9 +188,13 @@ let a_desc = Tcgen05SmemDescriptor::for_k_major(
     2, // bytes per element (f16)
     Tcgen05SwizzleMode::Swizzle128B,
 );
-```### MMA 발행
+```
 
-스레드 하나가 MMA 명령을 발행한 뒤 모든 스레드가 배리어에서 대기합니다.```rust
+### MMA 발행
+
+스레드 하나가 MMA 명령을 발행한 뒤 모든 스레드가 배리어에서 대기합니다.
+
+```rust
 use cuda_device::tcgen05::{tcgen05_commit, tcgen05_mma_f16};
 
 if thread::threadIdx_x() == 0 {
@@ -182,9 +212,13 @@ if thread::threadIdx_x() == 0 {
 
 // All threads wait for MMA completion
 mma_barrier.wait(token);
-```### 에필로그 — TMEM 결과 읽기
+```
 
-MMA 루프가 끝나면 누산기는 TMEM에 있습니다. 다음 TMA 전역 저장을 위해 공유 메모리로 옮기려면 TMEM에서 레지스터로 읽은 뒤 `stmatrix`로 공유 메모리에 써야 합니다.```rust
+### 에필로그 — TMEM 결과 읽기
+
+MMA 루프가 끝나면 누산기는 TMEM에 있습니다. 다음 TMA 전역 저장을 위해 공유 메모리로 옮기려면 TMEM에서 레지스터로 읽은 뒤 `stmatrix`로 공유 메모리에 써야 합니다.
+
+```rust
 use cuda_device::convert::cvt_bf16x2_f32;
 use cuda_device::tcgen05::{
     TmemF32x4, stmatrix_m8n8_x2, tcgen05_ld_16x256b_pure, tcgen05_load_wait,
@@ -202,13 +236,19 @@ unsafe {
     // Store two 8×8 matrices from registers (warp-collective).
     stmatrix_m8n8_x2(smem_ptr, packed0, packed1);
 }
-````stmatrix`는 워프 집합 연산입니다. 스레드 32개 모두 참여하며 각 스레드가 자신의 레지스터 부분을 제공해 공유 메모리 타일을 구성합니다.
+```
+
+`stmatrix`는 워프 집합 연산입니다. 스레드 32개 모두 참여하며 각 스레드가 자신의 레지스터 부분을 제공해 공유 메모리 타일을 구성합니다.
 
 ### CTA 그룹 2 (CG2)
 
-Blackwell은 **CG2 모드**도 지원합니다. 클러스터의 CTA 두 개가 짝을 이루어 조정된 MMA 명령을 발행합니다. 유효 타일 폭이 두 배가 되며 `_cg2` API 변형을 사용해야 합니다.```rust
+Blackwell은 **CG2 모드**도 지원합니다. 클러스터의 CTA 두 개가 짝을 이루어 조정된 MMA 명령을 발행합니다. 유효 타일 폭이 두 배가 되며 `_cg2` API 변형을 사용해야 합니다.
+
+```rust
 use cuda_device::tcgen05::{tcgen05_alloc_cg2, tcgen05_mma_f16_cg2};
-```CG2와 표준 CG1을 커널 하나에서 섞어 사용할 수 없습니다.
+```
+
+CG2와 표준 CG1을 커널 하나에서 섞어 사용할 수 없습니다.
 
 :::{tip}
 tcgen05는 **Blackwell 데이터센터 GPU**(SM 100a)에서만 사용할 수 있습니다. 소비자용 Blackwell(SM 120)은 이전 `mma.sync` 명령어 집합을 사용합니다. tcgen05 API를 사용하기 전에 대상 아키텍처를 확인하세요.
