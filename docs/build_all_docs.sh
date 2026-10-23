@@ -7,6 +7,7 @@
 #
 #   build/html/                 umbrella landing page
 #   build/html/cuda-oxide/      SIMT model book
+#   build/html/cuda-oxide/ko/   Korean translation
 #   build/html/cutile/          Versioned Tile model book
 #
 # Modelled on cuda-python's cuda_python/docs/build_all_docs.sh.
@@ -46,6 +47,11 @@ touch "${OUT}/.nojekyll"
 
 # SIMT book uses the same warning policy as the landing page.
 sphinx-build "${SPHINX_FLAGS[@]}" -b html "${OXIDE_BOOK}" "${OUT}/cuda-oxide"
+
+# Build the separately maintained Korean translation alongside the source book.
+if [[ -f "${OXIDE_BOOK}/ko/conf.py" ]]; then
+    sphinx-build "${SPHINX_FLAGS[@]}" -b html "${OXIDE_BOOK}/ko" "${OUT}/cuda-oxide/ko"
+fi
 
 # Preserve the Tile book's version switcher, latest redirect, and historical
 # tags. The versioned builder owns everything below build/html/cutile/.

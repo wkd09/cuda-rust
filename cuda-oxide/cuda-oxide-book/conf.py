@@ -35,7 +35,7 @@ source_suffix = {
 master_doc = 'index'
 
 templates_path = ['_templates']
-exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', '.venv', 'README.md']
+exclude_patterns = ['_build', 'Thumbs.db', '.DS_Store', '.venv', 'README.md', 'ko']
 
 # -- Options for HTML output -------------------------------------------------
 html_theme = 'pydata_sphinx_theme'
