@@ -136,6 +136,7 @@ advanced/shared-memory-and-synchronization
 gpu-programming/execution-model
 gpu-programming/closures-and-generics
 gpu-programming/virtual-memory-and-peer-access
+gpu-programming/kernels-and-device-functions
 :::
 
 :::{toctree}
