@@ -143,6 +143,7 @@ gpu-programming/closures-and-generics
 
 async-programming/overlapping-transfers-and-compute
 async-programming/scheduling-and-streams
+async-programming/concurrent-execution
 :::
 
 :::{toctree}
@@ -154,6 +155,14 @@ appendix/building-from-source
 appendix/cuda-cpp-comparison
 appendix/ecosystem
 appendix/glossary
+:::
+
+:::{toctree}
+:hidden:
+:maxdepth: 2
+:caption: GPU 안전성
+
+gpu-safety/bounds-checks
 :::
 
 :::{toctree}
