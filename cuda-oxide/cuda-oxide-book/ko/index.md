@@ -137,6 +137,7 @@ gpu-programming/execution-model
 gpu-programming/closures-and-generics
 gpu-programming/virtual-memory-and-peer-access
 gpu-programming/kernels-and-device-functions
+gpu-programming/error-handling-and-debugging
 :::
 
 :::{toctree}
