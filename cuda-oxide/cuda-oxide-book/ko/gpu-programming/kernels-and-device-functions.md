@@ -178,9 +178,7 @@ cuda-oxide는 `rustc`를 통해 표준 Rust를 컴파일하므로 부분 언어�
 | 트레잇 객체(`dyn Trait`)       | vtable 디스패치가 필요함                                             | 제네릭 사용(단형화)         |
 
 :::{tip}
-If you accidentally use an unsupported feature, the compiler will produce a
-clear error: `"CUDA-OXIDE: FORBIDDEN CRATE IN DEVICE CODE"` with a list of
-allowed crates (`core`, `alloc`, `cuda_device`, and your local crate).
+지원되지 않는 기능을 실수로 사용하면 컴파일러가 허용 크레이트(`core`, `alloc`, `cuda_device`, 현재 로컬 크레이트) 목록과 함께 `CUDA-OXIDE: FORBIDDEN CRATE IN DEVICE CODE` 오류를 출력합니다.
 :::
 
 ## 조건부 컴파일
