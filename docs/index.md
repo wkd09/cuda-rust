@@ -110,5 +110,4 @@ cutile-rs <https://nvidia.github.io/cuda-rust/cutile/>
 
 
 ## 한국어 문서
-
-- <a href="cuda-oxide/ko/">cuda-oxide 책 한국어 번역</a> (번역 진행 중)
+- <a href="https://wkd09.github.io/cuda-rust/cuda-oxide/ko/">cuda-oxide 책 한국어 번역</a> (번역 진행 중)
