@@ -123,6 +123,7 @@ getting-started/hello-gpu
 
 advanced/cluster-programming
 advanced/tensor-memory-accelerator
+advanced/warp-level-programming
 :::
 
 :::{toctree}
