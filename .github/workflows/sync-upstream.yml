@@ -31,6 +31,10 @@ jobs:
           git fetch origin sync/upstream-main:refs/remotes/origin/sync/upstream-main || true
           git checkout -B sync/upstream-main origin/main
           git merge --no-edit upstream/main
+          if [ "$(git rev-list --count origin/main..sync/upstream-main)" -eq 0 ]; then
+            echo "No new upstream commits to sync."
+            exit 0
+          fi
           git push --force-with-lease origin sync/upstream-main
 
       - name: Open or refresh the upstream update pull request
