@@ -142,6 +142,7 @@ gpu-programming/closures-and-generics
 :caption: 비동기 프로그래밍
 
 async-programming/overlapping-transfers-and-compute
+async-programming/scheduling-and-streams
 :::
 
 :::{toctree}
