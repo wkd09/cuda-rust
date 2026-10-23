@@ -176,6 +176,7 @@ gpu-safety/bounds-checks
 compiler/fuzzing-and-differential-testing
 compiler/rustc-public
 compiler/pliron
+compiler/rustc-codegen-cuda
 compiler/architecture-overview
 compiler/compiler-optimizations
 compiler/catalog-generated-intrinsics
