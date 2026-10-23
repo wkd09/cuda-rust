@@ -25,7 +25,7 @@ Rust 소스 → rustc MIR → mir-importer → dialect-mir → mem2reg
           → mir-transforms → mir-lower → LLVM dialect → LLVM IR → PTX
 ```
 
-[ M I R importer](https://nvidia.github.io/cuda-rust/cuda-oxide/compiler/mir-importer.html)는 처음에 로컬 변수를 load/store로 표현합니다. `mem2reg`는 조건을 만족하는 로컬을 **SSA 값**으로 승격합니다. 각 값은 정의 지점 하나만 가지며 블록 인자가 블록 사이에 값을 전달합니다. 이 구조에서 카운터와 갱신을 분석하기 쉬워집니다. `dialect-mir`에는 Rust 타입과 연산이 남아 있어 표적 변환을 표현하기도 쉽습니다. 최적화 후에는 [낮춤 파이프라인](https://nvidia.github.io/cuda-rust/cuda-oxide/compiler/lowering-pipeline.html)이 결과를 변환합니다.
+[ M I R importer](mir-importer.md)는 처음에 로컬 변수를 load/store로 표현합니다. `mem2reg`는 조건을 만족하는 로컬을 **SSA 값**으로 승격합니다. 각 값은 정의 지점 하나만 가지며 블록 인자가 블록 사이에 값을 전달합니다. 이 구조에서 카운터와 갱신을 분석하기 쉬워집니다. `dialect-mir`에는 Rust 타입과 연산이 남아 있어 표적 변환을 표현하기도 쉽습니다. 최적화 후에는 [낮춤 파이프라인](https://nvidia.github.io/cuda-rust/cuda-oxide/compiler/lowering-pipeline.html)이 결과를 변환합니다.
 
 전체 변수 디버그 빌드는 `mem2reg`와 루프 언롤링을 건너뜁니다. 변수의 안정된 메모리 위치를 유지하면 cuda-gdb 디버깅이 쉬워집니다.
 

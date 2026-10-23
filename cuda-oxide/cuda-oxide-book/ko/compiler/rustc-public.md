@@ -183,4 +183,4 @@ components = ["rust-src", "rustc-dev", "rust-analyzer", "clippy", "rustfmt", "ll
 `rustc_public`이 성숙해 crates.io 배포에 가까워지면 특정 나이틀리에 대한 결합은 약해질 것입니다. 장기 목표는 충분히 최신인 안정 Rust 도구 체인에서도 cuda-oxide가 동작하게 하는 것이지만, 아직 그 단계는 아닙니다.
 ```
 
-cuda-oxide가 Rust 컴파일러와 통신하는 방식을 살펴봤습니다. 다음 장에서는 이 과정이 코드 생성 백엔드에 도달했을 때 일어나는 일, 즉 [코드 생성기](https://nvidia.github.io/cuda-rust/cuda-oxide/compiler/rustc-codegen-cuda.html)를 다룹니다.
+cuda-oxide가 Rust 컴파일러와 통신하는 방식을 살펴봤습니다. 다음 장에서는 이 과정이 코드 생성 백엔드에 도달했을 때 일어나는 일, 즉 [코드 생성기](rustc-codegen-cuda.md)를 다룹니다.

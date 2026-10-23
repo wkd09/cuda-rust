@@ -145,4 +145,4 @@ LLVM NVPTX 백엔드 인트린식을 타입이 지정된 pliron 연산으로 감
 - 워프 원시 연산: 셔플(`nvvm.shfl_sync`), vote, reduction을 제공합니다.
 - 가속기 연산: TMA bulk copy, Hopper WGMMA, Blackwell tcgen05 텐서 코어 명령을 제공합니다.
 
-세 dialect 각각의 상세 내용은 [Pliron dialect](https://nvidia.github.io/cuda-rust/cuda-oxide/compiler/mlir-dialects.html) 장을 참고하세요.
+세 dialect 각각의 상세 내용은 [Pliron dialect](mlir-dialects.md) 장을 참고하세요.

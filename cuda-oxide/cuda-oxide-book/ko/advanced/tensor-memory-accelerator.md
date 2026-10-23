@@ -12,7 +12,7 @@ cuda-oxide는 `TmaDescriptor`, `cp_async_bulk_tensor_*` 계열, `ManagedBarrier`
 
 ## TMA가 해결하는 문제
 
-[공유 메모리](https://nvidia.github.io/cuda-rust/cuda-oxide/advanced/shared-memory-and-synchronization.html) 장에서는 블록의 모든 스레드가 전역 메모리에서 타일을 불러옵니다.
+[공유 메모리](../advanced/shared-memory-and-synchronization.md) 장에서는 블록의 모든 스레드가 전역 메모리에서 타일을 불러옵니다.
 
 ```rust
 TILE_A[ty * TILE + tx] = a[row * k + tile_offset + tx];
@@ -86,7 +86,7 @@ unsafe fn load_tile(
 
 좌표(`tile_x`, `tile_y`)는 설명자에 인코딩된 box 크기 단위로 복사할 타일을 지정합니다. 배리어 포인터는 TMA 엔진이 완료 신호를 보낼 위치를 알려줍니다.
 
-이 함수들은 클러스터 공유 메모리를 대상으로 합니다. 대상은 클러스터의 어느 CTA에나 속할 수 있으므로 컴파일러가 클러스터 윈도우로 변환합니다. 복사 대상이 요청한 CTA 자체의 공유 메모리인 경우 `cp_async_bulk_tensor_*_g2s_cta`는 변환 없이 `.shared::cta` 대상 형식(PTX 8.6, sm_90 이상)을 생성합니다. 대상 타입은 CTA 공유 포인터인 [`SharedPtr<u8>`](https://nvidia.github.io/cuda-rust/cuda-oxide/advanced/shared-memory-and-synchronization.html)이므로 도우미 함수를 통해 전달하는 경우에도 어느 경로에서 포인터를 얻었는지와 무관하게 로컬성이 보장됩니다.
+이 함수들은 클러스터 공유 메모리를 대상으로 합니다. 대상은 클러스터의 어느 CTA에나 속할 수 있으므로 컴파일러가 클러스터 윈도우로 변환합니다. 복사 대상이 요청한 CTA 자체의 공유 메모리인 경우 `cp_async_bulk_tensor_*_g2s_cta`는 변환 없이 `.shared::cta` 대상 형식(PTX 8.6, sm_90 이상)을 생성합니다. 대상 타입은 CTA 공유 포인터인 [`SharedPtr<u8>`](../advanced/shared-memory-and-synchronization.md)이므로 도우미 함수를 통해 전달하는 경우에도 어느 경로에서 포인터를 얻었는지와 무관하게 로컬성이 보장됩니다.
 
 ```rust
 // SAFETY: TILE and BAR are `static mut` shared-memory objects of this kernel,
@@ -260,6 +260,6 @@ TMA 멀티캐스트와 자연스럽게 결합하는 클러스터 모델 및 분�
 TMA의 핵심 장점은 최대 대역폭 자체가 아닙니다. TMA와 수동 로드는 비슷한 최대 처리량을 낼 수 있습니다. 차이는 **스레드 활용률**입니다. TMA가 다음 타일을 로드하는 동안 모든 스레드가 현재 타일을 계산할 수 있습니다. 이 방식은 최신 GEMM 구현이 사용하는 **다단계 소프트웨어 파이프라인**을 가능하게 합니다.
 
 :::{seealso}
-- TMA가 대체하는 수동 로드 패턴은 [공유 메모리와 동기화](https://nvidia.github.io/cuda-rust/cuda-oxide/advanced/shared-memory-and-synchronization.html)를 참조하세요.
+- TMA가 대체하는 수동 로드 패턴은 [공유 메모리와 동기화](../advanced/shared-memory-and-synchronization.md)를 참조하세요.
 - TMA가 텐서 코어에 데이터를 공급하는 방법은 [행렬 곱 가속기](https://nvidia.github.io/cuda-rust/cuda-oxide/advanced/matrix-multiply-accelerators.html)를 참조하세요.
 :::

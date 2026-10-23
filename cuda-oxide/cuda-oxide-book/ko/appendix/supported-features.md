@@ -108,7 +108,7 @@ union 필드가 공유 메모리 포인터를 직접 또는 구조체·길이가
 | 프로젝트 정리 | **완전** | `cargo oxide clean`은 프로젝트의 `target/`과 생성된 디바이스 산출물을 지우며 공유 `~/.cargo/cuda-oxide/` 캐시는 건드리지 않습니다. |
 | Compute Sanitizer 래퍼 | **완전** | `cargo oxide sanitize <example>`은 예제를 빌드한 뒤 NVIDIA Compute Sanitizer의 `memcheck`, `racecheck`, `initcheck`, `synccheck`로 호스트 바이너리를 실행합니다. |
 | cuda-gdb 소스 디버깅 | **완전** | `cargo oxide debug`는 PTX 경로에 디바이스 디버그 정보를 만들고 `cuda-gdb`를 실행합니다. 이전 NVVM IR은 아직 디버그 메타데이터를 지원하지 않습니다. |
-| cuda-gdb 지역 변수/인자 검사 | **부분** | 전체 모드에서는 지원되는 지역 변수를 메모리에 유지합니다. `ScalarReplacementOfAggregates`와 `SingleUseConsts`를 끄고 `ReferencePropagation` 및 일반 MIR 인라이닝을 유지하며 `DisjointSlice::get_mut`만 외부화합니다. 스칼라, 포인터, 집계, 클로저, 열거형, 일부 투영을 지원합니다. 제한은 [디버깅과 오류 처리](https://nvidia.github.io/cuda-rust/cuda-oxide/gpu-programming/error-handling-and-debugging.html)를 참조하세요. |
+| cuda-gdb 지역 변수/인자 검사 | **부분** | 전체 모드에서는 지원되는 지역 변수를 메모리에 유지합니다. `ScalarReplacementOfAggregates`와 `SingleUseConsts`를 끄고 `ReferencePropagation` 및 일반 MIR 인라이닝을 유지하며 `DisjointSlice::get_mut`만 외부화합니다. 스칼라, 포인터, 집계, 클로저, 열거형, 일부 투영을 지원합니다. 제한은 [디버깅과 오류 처리](error-handling-and-debugging.md)를 참조하세요. |
 
 ## 컴파일러: 인라인 PTX
 

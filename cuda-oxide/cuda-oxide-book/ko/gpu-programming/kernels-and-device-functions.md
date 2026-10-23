@@ -392,5 +392,5 @@ CUDA_OXIDE_NO_SPILL_WARN=1 cargo oxide build my_kernels --materialize-cubin
 ```
 
 :::{seealso}
-커널 실패 진단에 사용하는 `gpu_printf!`, `gpu_assert!`, `cargo oxide debug`는 [오류 처리와 디버깅](https://nvidia.github.io/cuda-rust/cuda-oxide/gpu-programming/error-handling-and-debugging.html) 장에서 설명합니다.
+커널 실패 진단에 사용하는 `gpu_printf!`, `gpu_assert!`, `cargo oxide debug`는 [오류 처리와 디버깅](error-handling-and-debugging.md) 장에서 설명합니다.
 :::

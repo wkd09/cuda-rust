@@ -294,6 +294,6 @@ pub fn warp_dot_product(
 전체 내적을 계산하려면 두 번째 패스를 실행해 워프별 결과를 다시 축약해야 합니다. 워프 커널을 한 번 더 실행하거나 원자 연산을 사용할 수 있습니다. 첫 패스에서 레지스터 셔플만으로 대부분의 계산을 처리합니다.
 
 :::{seealso}
-- 워프보다 큰 작업의 블록 전체 대응 방식은 [공유 메모리와 동기화](https://nvidia.github.io/cuda-rust/cuda-oxide/advanced/shared-memory-and-synchronization.html)를 참조하세요.
+- 워프보다 큰 작업의 블록 전체 대응 방식은 [공유 메모리와 동기화](../advanced/shared-memory-and-synchronization.md)를 참조하세요.
 - 이 패턴에 데이터를 공급하는 전역-공유 메모리 이동을 가속하는 하드웨어는 [텐서 메모리 가속기](tensor-memory-accelerator.md)를 참조하세요.
 :::

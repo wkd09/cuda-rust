@@ -28,7 +28,7 @@ Rust 소스가 rustc 프런트엔드와 Stable MIR을 거쳐 `dialect-mir`로 �
 1. **Rust 소스:** `#[kernel]` 매크로가 함수를 `cuda_oxide_kernel_<hash>_<name>` 예약 네임스페이스로 바꿉니다. 접두사는 `reserved-oxide-symbols`에 있고 해시가 충돌을 방지합니다.
 2. **rustc:** 파싱, 타입·빌림 검사, 단형화와 인라이닝·상수 전파·데드 코드 제거를 수행합니다.
 3. **Stable MIR:** 코드 생성 백엔드가 rustc 내부 MIR을 `rustc_public` 타입으로 변환합니다.
-4. **`dialect-mir`:** `mir-importer`가 place, projection, `Rvalue`, `BinOp` 등을 pliron dialect로 가져옵니다. 로컬별 `mir.alloca`, 블록 간 `mir.load`/`mir.store`를 `pliron::opts::mem2reg`가 SSA 값으로 승격합니다. 이후 [컴파일러 최적화](https://nvidia.github.io/cuda-rust/cuda-oxide/compiler/compiler-optimizations.html)가 실행됩니다.
+4. **`dialect-mir`:** `mir-importer`가 place, projection, `Rvalue`, `BinOp` 등을 pliron dialect로 가져옵니다. 로컬별 `mir.alloca`, 블록 간 `mir.load`/`mir.store`를 `pliron::opts::mem2reg`가 SSA 값으로 승격합니다. 이후 [컴파일러 최적화](compiler-optimizations.md)가 실행됩니다.
 5. **LLVM dialect:** `mir-lower`가 `llvm.alloca`, `llvm.load`, `llvm.store`, `llvm.getelementptr`, `llvm.call` 등으로 Rust 개념을 기계 지향 IR로 낮춥니다.
 6. **LLVM IR:** NVVM 빌드는 `nvvm-transforms`로 libNVVM이 받는 형태로 바꿉니다. 일반 PTX 빌드는 건너뛰며 `llvm-export`가 텍스트 `.ll`을 출력합니다.
 7. **GPU 산출물:** 일반 빌드는 `llc`로 PTX를 생성하고 NVVM 빌드는 libNVVM/nvJitLink로 LTOIR 및 cubin을 만듭니다.
@@ -74,7 +74,7 @@ pliron은 `Context`, `Module`, `Region`, `Block`, `Operation`, `Type`, `Attribut
 [pliron](https://github.com/vaivaswatha/pliron)은 LLVM MLIR에서 영감을 받은 순수 Rust 확장형 컴파일러 IR입니다. dialect, 연산, 타입, 속성, 영역, 블록을 제공하며 C++ 도구 체인, CMake, tablegen을 요구하지 않습니다. cuda-oxide는 컴파일러 전체를 `cargo`로 빌드하기 위해 MLIR 대신 pliron을 선택했습니다. `dialect-mir`와 `dialect-nvvm`은 lowering 경로에 있고 `dialect-iket`, `dialect-ptx`는 각각 커널 이벤트 추적과 구조화 PTX에 사용됩니다.
 
 :::{seealso}
-자세한 내용은 [Pliron — Rust의 MLIR](https://nvidia.github.io/cuda-rust/cuda-oxide/compiler/pliron.html)을 참조하세요.
+자세한 내용은 [Pliron — Rust의 MLIR](pliron.md)을 참조하세요.
 :::
 
 ### rustc_public — Stable MIR
@@ -138,11 +138,11 @@ cuda-oxide는 최적화·단형화·빌림 검사가 끝난 MIR을 번역합니�
 
 ## 다음에 읽을 내용
 
-- [Pliron](https://nvidia.github.io/cuda-rust/cuda-oxide/compiler/pliron.html): IR 프레임워크
+- [Pliron](pliron.md): IR 프레임워크
 - [rustc_public — Stable MIR](rustc-public.md): 안정 MIR 인터페이스
-- [rustc-codegen-cuda](https://nvidia.github.io/cuda-rust/cuda-oxide/compiler/rustc-codegen-cuda.html): 코드 생성 백엔드
-- [MIR importer](https://nvidia.github.io/cuda-rust/cuda-oxide/compiler/mir-importer.html): Stable MIR 가져오기
-- [컴파일러 최적화](https://nvidia.github.io/cuda-rust/cuda-oxide/compiler/compiler-optimizations.html): MIR 분석 및 변환
-- [Pliron dialect](https://nvidia.github.io/cuda-rust/cuda-oxide/compiler/mlir-dialects.html): 커스텀 dialect
+- [rustc-codegen-cuda](rustc-codegen-cuda.md): 코드 생성 백엔드
+- [MIR importer](mir-importer.md): Stable MIR 가져오기
+- [컴파일러 최적화](compiler-optimizations.md): MIR 분석 및 변환
+- [Pliron dialect](mlir-dialects.md): 커스텀 dialect
 - [낮춤 파이프라인](https://nvidia.github.io/cuda-rust/cuda-oxide/compiler/lowering-pipeline.html): MIR에서 LLVM dialect로
 - [새 인트린식 추가](https://nvidia.github.io/cuda-rust/cuda-oxide/compiler/adding-new-intrinsics.html): 확장 기여 안내

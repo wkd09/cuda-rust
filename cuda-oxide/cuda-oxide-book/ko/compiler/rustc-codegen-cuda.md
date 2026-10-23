@@ -184,7 +184,7 @@ rustc_internal::run(tcx, || {
 1. `rustc_internal::run(tcx, || { ... })`는 `rustc_public`에 필요한 스레드 로컬 컨텍스트를 설정합니다. 범위 밖에서 안정 MIR 쿼리를 하면 패닉합니다.
 2. `rustc_internal::stable(f.instance)`는 내부 `rustc_middle::ty::Instance`를 `stable_mir::mir::mono::Instance`로 한 방향 변환합니다. 반대 방향 변환은 지원하지 않습니다.
 
-이후 `mir_importer::run_pipeline()`이 안정 MIR을 읽고 pliron MIR dialect와 PTX까지 전체 lowering을 실행합니다. 자세한 내용은 [MIR importer](https://nvidia.github.io/cuda-rust/cuda-oxide/compiler/mir-importer.html)를 참고하세요.
+이후 `mir_importer::run_pipeline()`이 안정 MIR을 읽고 pliron MIR dialect와 PTX까지 전체 lowering을 실행합니다. 자세한 내용은 [MIR importer](mir-importer.md)를 참고하세요.
 
 (rustc-codegen-environment-variables)=
 
@@ -221,7 +221,7 @@ verbose 모드는 수집된 함수·크레이트와 각 파이프라인 단계�
 감싸는 구조 덕분에 나머지 컴파일 파이프라인에서 cuda-oxide는 보이지 않습니다. 링커에는 일반 객체 파일이, 빌드 시스템에는 정상 산출물이 전달됩니다. 호스트 바이너리 옆에 PTX 파일이 생기는 것이 특별한 동작의 흔적이며, 런타임에 CUDA 드라이버가 이를 로드합니다.
 
 :::{seealso}
-다음 단계인 [MIR importer](https://nvidia.github.io/cuda-rust/cuda-oxide/compiler/mir-importer.html)는 Stable MIR에서 Pliron IR로의 변환을 설명합니다.
+다음 단계인 [MIR importer](mir-importer.md)는 Stable MIR에서 Pliron IR로의 변환을 설명합니다.
 :::
 *** End Patch
 mkdir -p cuda-oxide/cuda-oxide-book/ko/compiler/images

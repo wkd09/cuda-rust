@@ -288,7 +288,7 @@ cuBLAS와 CUTLASS는 내부에서 이 커널 구조를 사용합니다. cuda-oxi
 [`gemm_sol` 예제](https://github.com/NVIDIA/cuda-rust/tree/main/cuda-oxide/crates/rustc-codegen-cuda/examples/gemm_sol)는 구현을 끝까지 보여주는 참고 자료입니다. 4단계 `cta_group::2` 파이프라인은 B200(148 SM)에서 크기 4096³일 때 **868 TFLOPS, `cublasLtMatmul` SoL의 57.8%**에 도달합니다. 더 작은 Blackwell 데이터센터 SKU에서는 SM 수에 따라 처리량이 줄어듭니다(예: 80-SM 변형에서 같은 커널은 약 204 TFLOPS, SoL 약 46%). 두 구성의 단계별 표는 예제 README를 참조하세요. 예제는 `bench/cublaslt_bench`로 실행 중 cublasLt 기준값을 측정하므로 “SoL 대비 비율”은 고정 B200 수치가 아니라 호스트 GPU의 cublasLt 최고치에 대한 비율입니다.
 
 :::{seealso}
-- MMA 피연산자 타일 관리는 [공유 메모리와 동기화](https://nvidia.github.io/cuda-rust/cuda-oxide/advanced/shared-memory-and-synchronization.html)를 참조하세요.
+- MMA 피연산자 타일 관리는 [공유 메모리와 동기화](../advanced/shared-memory-and-synchronization.md)를 참조하세요.
 - 텐서 코어로 타일을 전달하는 [텐서 메모리 가속기](tensor-memory-accelerator.md)를 참조하세요.
 - CG2 모드와 멀티캐스트를 사용하는 다중 CTA MMA는 [클러스터 프로그래밍](cluster-programming.md)을 참조하세요.
 :::

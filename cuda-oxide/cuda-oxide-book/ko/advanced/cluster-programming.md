@@ -256,5 +256,5 @@ pub fn stencil_1d(input: &[f32], mut output: DisjointSlice<f32>, n: u32) {
 :::{seealso}
 - [Tensor Memory Accelerator](https://nvidia.github.io/cuda-rust/cuda-oxide/advanced/tensor-memory-accelerator.html) — TMA 멀티캐스트는 CTA 사이로 데이터를 전달할 때 클러스터를 필요로 합니다.
 - [Matrix Multiply Accelerators](https://nvidia.github.io/cuda-rust/cuda-oxide/advanced/matrix-multiply-accelerators.html) — CG2 모드는 클러스터 쌍을 사용해 더 넓은 MMA 타일을 처리합니다.
-- [Shared Memory and Synchronization](https://nvidia.github.io/cuda-rust/cuda-oxide/advanced/shared-memory-and-synchronization.html) — DSMEM이 확장하는 블록 단위 공유 메모리의 기초입니다.
+- [Shared Memory and Synchronization](../advanced/shared-memory-and-synchronization.md) — DSMEM이 확장하는 블록 단위 공유 메모리의 기초입니다.
 :::
