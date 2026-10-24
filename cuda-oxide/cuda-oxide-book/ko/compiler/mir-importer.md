@@ -209,7 +209,7 @@ match name {
 함수가 내장 함수가 *아니면* 일반 경로로 진행해 심볼 이름으로 호출 대상을 참조하는 `mir.call` 연산을 출력합니다. 호출 대상 함수 본문은 별도로 변환되어 있습니다(수집된 함수 목록에도 포함됨). 따라서 정상적으로 링크됩니다.
 
 ```{note}
-내장 함수 디스패치 테이블은 cuda-oxide에 새 GPU 연산을 추가하는 주요 확장 지점입니다. NVIDIA가 새 명령을 제공하고 이를 노출하려면 `cuda_device` 함수, `dialect-nvvm` 연산, 여기의 비교 분기를 추가하세요. 단계별 설명은 [새 내장 함수 추가](https://nvidia.github.io/cuda-rust/cuda-oxide/compiler/adding-new-intrinsics.html)를 참조하세요.
+내장 함수 디스패치 테이블은 cuda-oxide에 새 GPU 연산을 추가하는 주요 확장 지점입니다. NVIDIA가 새 명령을 제공하고 이를 노출하려면 `cuda_device` 함수, `dialect-nvvm` 연산, 여기의 비교 분기를 추가하세요. 단계별 설명은 [새 내장 함수 추가](adding-new-intrinsics)를 참조하세요.
 ```
 
 ---
@@ -296,4 +296,4 @@ mir.func @vecadd(%a: mir.slice<f32>, %b: mir.slice<f32>,
 5. **내보내기** — `vecadd`를 커널 진입점으로 표시하는 `!nvvm.annotations` 메타데이터를 포함해 LLVM dialect를 텍스트 `.ll` 파일로 출력합니다.
 6. **컴파일** — 일반적으로 LLVM의 NVPTX 백엔드가 `.ll`을 `.ptx`로 컴파일합니다. NVVM 빌드는 libNVVM과 nvJitLink를 사용합니다. 결과는 호스트 바이너리 옆에 기록됩니다.
 
-`dialect-mir`는 Rust 의미 체계를 충실히 보존합니다. 하위 변환 전에 cuda-oxide는 동작을 보존하는 표적 재작성을 수행할 수 있습니다. 첫 최적화는 [컴파일러 최적화](compiler-optimizations.md)에서 설명합니다. 이어서 [하위 변환 파이프라인](https://nvidia.github.io/cuda-rust/cuda-oxide/compiler/lowering-pipeline.html)이 LLVM에서 이해할 수 있는 형태로 바꿉니다.
+`dialect-mir`는 Rust 의미 체계를 충실히 보존합니다. 하위 변환 전에 cuda-oxide는 동작을 보존하는 표적 재작성을 수행할 수 있습니다. 첫 최적화는 [컴파일러 최적화](compiler-optimizations.md)에서 설명합니다. 이어서 [하위 변환 파이프라인](lowering-pipeline)이 LLVM에서 이해할 수 있는 형태로 바꿉니다.

@@ -3,7 +3,7 @@
 커널 실행 한 번으로 끝나는 GPU 작업은 드뭅니다. 실제 작업에서는 입력 업로드, 행렬 곱, 활성화 함수 적용, 결과를 호스트로 복사하는 네 작업을 정확한 순서로 실행할 수 있습니다. 이 장에서는 cuda-oxide 조합기로 지연성과 스트림 독립성을 유지하는 파이프라인을 만드는 방법을 설명합니다.
 
 :::{seealso}
-조합기의 기반이 되는 트레이트와 실행 메서드는 [DeviceOperation 모델](https://nvidia.github.io/cuda-rust/cuda-oxide/async-programming/the-device-operation-model.html)을 참고하세요.
+조합기의 기반이 되는 트레이트와 실행 메서드는 [DeviceOperation 모델](the-device-operation-model)을 참고하세요.
 :::
 
 ## 문제: 여러 단계의 GPU 작업

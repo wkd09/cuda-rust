@@ -25,7 +25,7 @@ Rust 소스 → rustc MIR → mir-importer → dialect-mir → mem2reg
           → mir-transforms → mir-lower → LLVM dialect → LLVM IR → PTX
 ```
 
-[ M I R importer](mir-importer.md)는 처음에 로컬 변수를 load/store로 표현합니다. `mem2reg`는 조건을 만족하는 로컬을 **SSA 값**으로 승격합니다. 각 값은 정의 지점 하나만 가지며 블록 인자가 블록 사이에 값을 전달합니다. 이 구조에서 카운터와 갱신을 분석하기 쉬워집니다. `dialect-mir`에는 Rust 타입과 연산이 남아 있어 표적 변환을 표현하기도 쉽습니다. 최적화 후에는 [낮춤 파이프라인](https://nvidia.github.io/cuda-rust/cuda-oxide/compiler/lowering-pipeline.html)이 결과를 변환합니다.
+[ M I R importer](mir-importer.md)는 처음에 로컬 변수를 load/store로 표현합니다. `mem2reg`는 조건을 만족하는 로컬을 **SSA 값**으로 승격합니다. 각 값은 정의 지점 하나만 가지며 블록 인자가 블록 사이에 값을 전달합니다. 이 구조에서 카운터와 갱신을 분석하기 쉬워집니다. `dialect-mir`에는 Rust 타입과 연산이 남아 있어 표적 변환을 표현하기도 쉽습니다. 최적화 후에는 [낮춤 파이프라인](lowering-pipeline)이 결과를 변환합니다.
 
 전체 변수 디버그 빌드는 `mem2reg`와 루프 언롤링을 건너뜁니다. 변수의 안정된 메모리 위치를 유지하면 cuda-gdb 디버깅이 쉬워집니다.
 
@@ -176,7 +176,7 @@ let stage = global_k & 3;                 // tile_k_base가 런타임 값이므�
 
 부분 언롤링에는 `N >= 2`, 양수 카운터 간격, `<` 또는 `<=` 비교, 루프 안에서 변하지 않는 경계값도 필요합니다. 바깥 루프만 어노테이션했으면 안쪽 루프 복사본을 온전히 유지합니다. 둘 다 표시했으면 안쪽부터 처리합니다.
 
-컴파일 시간과 메모리 사용을 제한하기 위해 어노테이션 하나가 만드는 본문 복사본은 최대 1,024개, 기본 블록은 8,192개, 연산은 65,536개입니다. 초과 요청은 경고 후 건너뜁니다. 변환하지 않은 루프의 경고에는 해당 `#[unroll]` 위치가 `file:line:column`으로 표시됩니다. 자세한 커널 작성 참고는 [루프 언롤링](https://nvidia.github.io/cuda-rust/cuda-oxide/gpu-programming/kernel-families.html#loop-unrolling)을 참조하세요.
+컴파일 시간과 메모리 사용을 제한하기 위해 어노테이션 하나가 만드는 본문 복사본은 최대 1,024개, 기본 블록은 8,192개, 연산은 65,536개입니다. 초과 요청은 경고 후 건너뜁니다. 변환하지 않은 루프의 경고에는 해당 `#[unroll]` 위치가 `file:line:column`으로 표시됩니다. 자세한 커널 작성 참고는 [루프 언롤링](../gpu-programming/kernel-families#loop-unrolling)을 참조하세요.
 
 ## 언제 언롤링할까?
 
@@ -212,4 +212,4 @@ cuda-oxide/crates/mir-transforms/src/
 cargo test -p mir-transforms --all-targets
 ```
 
-다음 [낮춤 파이프라인](https://nvidia.github.io/cuda-rust/cuda-oxide/compiler/lowering-pipeline.html) 장에서는 최적화된 `dialect-mir`가 LLVM dialect와 PTX가 되는 과정을 설명합니다.
+다음 [낮춤 파이프라인](lowering-pipeline) 장에서는 최적화된 `dialect-mir`가 LLVM dialect와 PTX가 되는 과정을 설명합니다.

@@ -158,7 +158,7 @@ fn add(x: i32, y: i32) -> i32 {
 
 ### cuda-oxide에서 중요한 이유
 
-MIR의 평탄하고 명시적인 구조가 이를 기반으로 GPU 컴파일러를 만들 수 있게 합니다. AST나 HIR(고수준 IR)을 직접 처리한다면 클로저, 메서드 해석, 트레이트 디스패치, 타입 추론 등 MIR 생성 시점에 이미 해결된 언어 기능을 다시 다뤄야 합니다. MIR을 읽으면 제네릭은 단형화되고 클로저는 구조체로 낮춰지며 제어 흐름도 명시되어 있습니다. `mir-importer`가 이를 Pliron IR(MLIR 유사 프레임워크)로 변환하고 [낮춤 파이프라인](https://nvidia.github.io/cuda-rust/cuda-oxide/compiler/lowering-pipeline.html)이 PTX까지 처리합니다.
+MIR의 평탄하고 명시적인 구조가 이를 기반으로 GPU 컴파일러를 만들 수 있게 합니다. AST나 HIR(고수준 IR)을 직접 처리한다면 클로저, 메서드 해석, 트레이트 디스패치, 타입 추론 등 MIR 생성 시점에 이미 해결된 언어 기능을 다시 다뤄야 합니다. MIR을 읽으면 제네릭은 단형화되고 클로저는 구조체로 낮춰지며 제어 흐름도 명시되어 있습니다. `mir-importer`가 이를 Pliron IR(MLIR 유사 프레임워크)로 변환하고 [낮춤 파이프라인](lowering-pipeline)이 PTX까지 처리합니다.
 
 ## 나이틀리 버전 고정
 

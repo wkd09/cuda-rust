@@ -1,6 +1,6 @@
 # DeviceOperation 모델
 
-[GPU 프로그램 작성](https://nvidia.github.io/cuda-rust/cuda-oxide/gpu-programming/launching-kernels.html) 장에서 타입 지정 동기 실행은 명시한 스트림에 작업을 넣고, 비동기 실행은 스트림 선택을 미루는 지연 핸들을 반환한다는 점을 살펴봤습니다. 이 장에서는 그 핸들의 기반인 **`DeviceOperation`** 트레이트와 GPU가 *무엇을* 할지와 *어느 스트림에서* 실행할지를 분리하는 것이 조합형 비동기 GPU 프로그래밍의 토대인 이유를 설명합니다.
+[GPU 프로그램 작성](../gpu-programming/launching-kernels) 장에서 타입 지정 동기 실행은 명시한 스트림에 작업을 넣고, 비동기 실행은 스트림 선택을 미루는 지연 핸들을 반환한다는 점을 살펴봤습니다. 이 장에서는 그 핸들의 기반인 **`DeviceOperation`** 트레이트와 GPU가 *무엇을* 할지와 *어느 스트림에서* 실행할지를 분리하는 것이 조합형 비동기 GPU 프로그래밍의 토대인 이유를 설명합니다.
 
 :::{seealso}
 기반이 되는 CUDA 스트림 및 이벤트 모델은 [CUDA 프로그래밍 가이드 — 비동기 동시 실행](https://docs.nvidia.com/cuda/cuda-programming-guide/#asynchronous-concurrent-execution)을 참고하세요.

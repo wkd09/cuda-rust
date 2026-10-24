@@ -284,5 +284,5 @@ nsys-ui report.nsys-rep
 | `init_device_contexts` 누락 | 첫 작업에서 `DeviceError::Context`가 발생합니다. | 프로그램 시작 시 한 번 호출합니다. |
 
 :::{seealso}
-전체 `async_mlp` 소스와 빌드 안내, 예상 출력은 [비동기 MLP 파이프라인](https://nvidia.github.io/cuda-rust/cuda-oxide/projects/async-mlp-pipeline.html) 장을 참고하세요.
+전체 `async_mlp` 소스와 빌드 안내, 예상 출력은 [비동기 MLP 파이프라인](../projects/async-mlp-pipeline) 장을 참고하세요.
 :::

@@ -261,5 +261,5 @@ TMA의 핵심 장점은 최대 대역폭 자체가 아닙니다. TMA와 수동 �
 
 :::{seealso}
 - TMA가 대체하는 수동 로드 패턴은 [공유 메모리와 동기화](../advanced/shared-memory-and-synchronization.md)를 참조하세요.
-- TMA가 텐서 코어에 데이터를 공급하는 방법은 [행렬 곱 가속기](https://nvidia.github.io/cuda-rust/cuda-oxide/advanced/matrix-multiply-accelerators.html)를 참조하세요.
+- TMA가 텐서 코어에 데이터를 공급하는 방법은 [행렬 곱 가속기](matrix-multiply-accelerators)를 참조하세요.
 :::

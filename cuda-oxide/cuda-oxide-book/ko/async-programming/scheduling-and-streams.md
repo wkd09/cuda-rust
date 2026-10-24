@@ -244,5 +244,5 @@ println!("Kernel took {:.2} ms", start.elapsed_ms(&end)?);
 | 최대 처리량 | Nsight Systems로 프로파일링하고 풀 크기 조정 |
 
 :::{seealso}
-CUDA 이벤트의 전체 사양은 [CUDA 프로그래밍 가이드 — 이벤트](https://docs.nvidia.com/cuda/cuda-programming-guide/#events)를 참조하세요. 이 스케줄링 개념을 여러 배치 워크로드에 적용하는 방법은 [동시 실행](https://nvidia.github.io/cuda-rust/cuda-oxide/async-programming/concurrent-execution.html) 장을 참조하세요.
+CUDA 이벤트의 전체 사양은 [CUDA 프로그래밍 가이드 — 이벤트](https://docs.nvidia.com/cuda/cuda-programming-guide/#events)를 참조하세요. 이 스케줄링 개념을 여러 배치 워크로드에 적용하는 방법은 [동시 실행](concurrent-execution) 장을 참조하세요.
 :::

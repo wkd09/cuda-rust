@@ -36,7 +36,7 @@ pub fn vecadd(a: &[f32], b: &[f32], mut c: DisjointSlice<f32>) {
 
 ### 매개변수 제약
 
-커널 매개변수는 **인자 스칼라화**를 거쳐 호스트/디바이스 ABI 경계를 넘습니다([메모리와 데이터 이동](https://nvidia.github.io/cuda-rust/cuda-oxide/gpu-programming/memory-and-data-movement.html) 장에서 설명). 주요 규칙은 다음과 같습니다.
+커널 매개변수는 **인자 스칼라화**를 거쳐 호스트/디바이스 ABI 경계를 넘습니다([메모리와 데이터 이동](memory-and-data-movement) 장에서 설명). 주요 규칙은 다음과 같습니다.
 
 - **슬라이스**(`&[T]`, `DisjointSlice<T>`)는 포인터와 길이 쌍으로 전달됩니다.
 - **스칼라**(`u32`, `f32` 등)는 직접 전달됩니다.

@@ -144,5 +144,5 @@ cuda-oxide는 최적화·단형화·빌림 검사가 끝난 MIR을 번역합니�
 - [MIR importer](mir-importer.md): Stable MIR 가져오기
 - [컴파일러 최적화](compiler-optimizations.md): MIR 분석 및 변환
 - [Pliron dialect](mlir-dialects.md): 커스텀 dialect
-- [낮춤 파이프라인](https://nvidia.github.io/cuda-rust/cuda-oxide/compiler/lowering-pipeline.html): MIR에서 LLVM dialect로
-- [새 인트린식 추가](https://nvidia.github.io/cuda-rust/cuda-oxide/compiler/adding-new-intrinsics.html): 확장 기여 안내
+- [낮춤 파이프라인](lowering-pipeline): MIR에서 LLVM dialect로
+- [새 인트린식 추가](adding-new-intrinsics): 확장 기여 안내

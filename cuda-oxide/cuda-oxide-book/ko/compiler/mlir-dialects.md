@@ -147,7 +147,7 @@ LLVM dialect는 LLVM IR을 pliron 연산으로 모델링합니다. 텍스트 `.l
 | `llvm.func`   | `(i32, ptr) -> void`                    | 함수 시그니처                                  |
 | `llvm.void`   | `void`                                  | 단위 타입                                        |
 
-Rust 전용 타입이 사라진 것을 확인하세요. 코드가 LLVM dialect에 도달할 때 튜플은 구조체가 되고 열거형은 판별값으로 인덱싱되는 구조체가 되며 슬라이스는 포인터와 길이 쌍이 됩니다. 이런 평탄화는 [하위 변환 파이프라인](https://nvidia.github.io/cuda-rust/cuda-oxide/compiler/lowering-pipeline.html) 패스에서 수행합니다.
+Rust 전용 타입이 사라진 것을 확인하세요. 코드가 LLVM dialect에 도달할 때 튜플은 구조체가 되고 열거형은 판별값으로 인덱싱되는 구조체가 되며 슬라이스는 포인터와 길이 쌍이 됩니다. 이런 평탄화는 [하위 변환 파이프라인](lowering-pipeline) 패스에서 수행합니다.
 
 ### 연산
 
@@ -259,7 +259,7 @@ attributes #0 = { convergent }
 
 아키텍처 요구 사항은 모듈이 아니라 내장 함수별로 관리합니다. 카탈로그는 각 항목의 PTX 버전과 최소 SM을 기록하며 `intrinsics/generated-reference.md`는 예상 PTX와 함께 이를 표시합니다. 이 파일은 연산과 함께 재생성되므로 여기서 수작업으로 관리하는 개수보다 해당 목록을 참조하세요.
 
-대부분의 사용자는 특수 레지스터, 워프 셔플, 배리어만 접하게 됩니다. 나머지는 TMA, 행렬 가속기, Blackwell 텐서 메모리 등 고급 GPU 프로그래밍용이며 [고급 GPU 기능](../advanced/tensor-memory-accelerator.md) 장에서 설명합니다. 연산을 추가한다면 거의 모든 새 내장 함수가 거치는 카탈로그 경로를 안내하는 [새 내장 함수 추가](https://nvidia.github.io/cuda-rust/cuda-oxide/compiler/adding-new-intrinsics.html)를 먼저 읽으세요.
+대부분의 사용자는 특수 레지스터, 워프 셔플, 배리어만 접하게 됩니다. 나머지는 TMA, 행렬 가속기, Blackwell 텐서 메모리 등 고급 GPU 프로그래밍용이며 [고급 GPU 기능](../advanced/tensor-memory-accelerator.md) 장에서 설명합니다. 연산을 추가한다면 거의 모든 새 내장 함수가 거치는 카탈로그 경로를 안내하는 [새 내장 함수 추가](adding-new-intrinsics)를 먼저 읽으세요.
 
 ### Rust에서 PTX까지: 내장 함수의 여정
 
@@ -350,4 +350,4 @@ llvm.func @vecadd(...) {
 
 ---
 
-하위 변환 패스가 이 dialect들을 연결하는 방식은 [하위 변환 파이프라인](https://nvidia.github.io/cuda-rust/cuda-oxide/compiler/lowering-pipeline.html)을 참조하세요.
+하위 변환 패스가 이 dialect들을 연결하는 방식은 [하위 변환 파이프라인](lowering-pipeline)을 참조하세요.

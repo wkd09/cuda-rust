@@ -147,7 +147,7 @@ union 필드가 공유 메모리 포인터를 직접 또는 구조체·길이가
 
 | 기능 | 상태 | 설명 |
 |:--|:--|:--|
-| 스레드/블록/그리드 인트린식 | **완전** | `threadIdx`, `blockIdx`, `blockDim`, `gridDim`을 제공합니다. 인덱스 증인은 레이아웃 타입을 가지며 유일성은 실행 차원과도 일치해야 합니다. `index_2d_runtime(&slice)`는 호스트가 설정한 슬라이스 행 너비를 사용합니다. [안전성 모델](https://nvidia.github.io/cuda-rust/cuda-oxide/gpu-safety/the-safety-model.html)을 참조하세요. |
+| 스레드/블록/그리드 인트린식 | **완전** | `threadIdx`, `blockIdx`, `blockDim`, `gridDim`을 제공합니다. 인덱스 증인은 레이아웃 타입을 가지며 유일성은 실행 차원과도 일치해야 합니다. `index_2d_runtime(&slice)`는 호스트가 설정한 슬라이스 행 너비를 사용합니다. [안전성 모델](../gpu-safety/the-safety-model)을 참조하세요. |
 | 블록 동기화 | **완전** | 스레드 블록 배리어 `sync_threads()`를 제공합니다. |
 | 비동기 배리어 (mbarrier) | **완전** | Hopper 이상 하드웨어의 초기화, 도착, 대기 확인, 재시도 대기, 무효화를 지원합니다. |
 | 클러스터 동기화 | **완전** | 클러스터 모든 블록을 위한 `cluster_sync()`이며 sm_90 이상입니다. |

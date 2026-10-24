@@ -153,7 +153,7 @@ let prepared = module.prepare_vecadd(LaunchConfig1D::new((N as u32).div_ceil(256
 module.vecadd(&stream, &prepared, &a_dev, &b_dev, &mut c_dev)?;
 ```
 
-로더는 호스트 바이너리에 임베드된 장치 산출물을 읽고 커널 함수 핸들을 캐시하며 각 `#[kernel]`을 Rust 메서드로 제공합니다. 메서드 서명은 커널 서명을 따르고 장치 슬라이스는 `DeviceBuffer` 참조로 대응됩니다. `vecadd`가 `#[launch_contract]`를 선언했으므로 모듈은 `prepare_vecadd`도 생성합니다. 이 메서드는 차원을 보존하는 `LaunchConfig1D`를 받아 계약과 실제 장치 한도를 검사하고, 안전한 `vecadd` 메서드가 소비하는 `PreparedLaunch<vecadd>` 증거를 반환합니다. 임베드된 번들이 모듈이 선언한 ABI와 일치한다고 호출자가 보증하는 모듈 로딩만이 남은 unsafe 단계입니다. 계약이 없는 커널은 원시 `LaunchConfig`가 1차원 인덱싱 커널에 1차원 실행이 전달됐다는 사실을 증명하지 못하므로 unsafe 원시 실행 메서드만 제공합니다. 전체 준비 실행 경로는 [커널 실행](https://nvidia.github.io/cuda-rust/cuda-oxide/gpu-programming/launching-kernels.html)을 참조하세요.
+로더는 호스트 바이너리에 임베드된 장치 산출물을 읽고 커널 함수 핸들을 캐시하며 각 `#[kernel]`을 Rust 메서드로 제공합니다. 메서드 서명은 커널 서명을 따르고 장치 슬라이스는 `DeviceBuffer` 참조로 대응됩니다. `vecadd`가 `#[launch_contract]`를 선언했으므로 모듈은 `prepare_vecadd`도 생성합니다. 이 메서드는 차원을 보존하는 `LaunchConfig1D`를 받아 계약과 실제 장치 한도를 검사하고, 안전한 `vecadd` 메서드가 소비하는 `PreparedLaunch<vecadd>` 증거를 반환합니다. 임베드된 번들이 모듈이 선언한 ABI와 일치한다고 호출자가 보증하는 모듈 로딩만이 남은 unsafe 단계입니다. 계약이 없는 커널은 원시 `LaunchConfig`가 1차원 인덱싱 커널에 1차원 실행이 전달됐다는 사실을 증명하지 못하므로 unsafe 원시 실행 메서드만 제공합니다. 전체 준비 실행 경로는 [커널 실행](../gpu-programming/launching-kernels)을 참조하세요.
 
 수동 sidecar 산출물 로딩과 사용자 정의 실행 코드를 위한 저수준 API `load_kernel_module` 및 `cuda_launch!`도 계속 사용할 수 있습니다. `cuda_launch!`는 커널 서명과 인자를 대조할 수 없으므로 unsafe이며 `unsafe { }` 안에서 호출해야 합니다.
 

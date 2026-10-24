@@ -1,6 +1,6 @@
 # 카탈로그 생성 인트린식
 
-cuda-oxide의 디바이스 인트린식은 컴파일러 단계를 각각 직접 고쳐 구현하기보다, 검토된 입력 카탈로그에 정의하고 `cuda-intrinsics-gen`으로 API, dialect, importer, lowering, 대상, 참조, probe 코드를 생성합니다. 카탈로그가 모델링할 수 없는 전용 검증 또는 lowering이 필요하면 [새 인트린식 추가](https://nvidia.github.io/cuda-rust/cuda-oxide/compiler/adding-new-intrinsics.html)를 참고하세요.
+cuda-oxide의 디바이스 인트린식은 컴파일러 단계를 각각 직접 고쳐 구현하기보다, 검토된 입력 카탈로그에 정의하고 `cuda-intrinsics-gen`으로 API, dialect, importer, lowering, 대상, 참조, probe 코드를 생성합니다. 카탈로그가 모델링할 수 없는 전용 검증 또는 lowering이 필요하면 [새 인트린식 추가](adding-new-intrinsics)를 참고하세요.
 
 ## 먼저 올바른 경로 선택
 
@@ -136,7 +136,7 @@ git diff --check
 
 ## 기존 카탈로그로 표현할 수 없는 경우
 
-새 lowering 형태, 피연산자 어댑터, 결과 계약, 패밀리 형태가 필요하면 이는 단순 등록이 아닙니다. `cuda-intrinsics-gen/src/model/`, `resolve/`, `render/` 및 필요에 따라 `cuda-oxide/crates/mir-lower/`나 `dialect-nvvm/`의 생성기·컴파일러를 수정해야 합니다. 가능하면 일반 카탈로그 등록과 분리하되 ABI ledger와 검증은 적용합니다. 설계상 수작업으로 남길 연산은 [새 인트린식 추가](https://nvidia.github.io/cuda-rust/cuda-oxide/compiler/adding-new-intrinsics.html)를 따릅니다.
+새 lowering 형태, 피연산자 어댑터, 결과 계약, 패밀리 형태가 필요하면 이는 단순 등록이 아닙니다. `cuda-intrinsics-gen/src/model/`, `resolve/`, `render/` 및 필요에 따라 `cuda-oxide/crates/mir-lower/`나 `dialect-nvvm/`의 생성기·컴파일러를 수정해야 합니다. 가능하면 일반 카탈로그 등록과 분리하되 ABI ledger와 검증은 적용합니다. 설계상 수작업으로 남길 연산은 [새 인트린식 추가](adding-new-intrinsics)를 따릅니다.
 
 ## 일반 추가에서 추출하지 않기
 

@@ -73,4 +73,4 @@ completions[slot] = Some(streams[slot].record_event(None)?);
 
 메모리를 페이지 고정하면 제한된 호스트 메모리를 사용하며, 페이지 가능한 입력을 스테이징 버퍼로 복사하는 작업도 공짜가 아닙니다. 작은 버퍼 링을 재사용하고 스트림 수를 늘리기 전에 복사 엔진을 프로파일링하세요.
 
-낮은 수준의 스트림 모델은 [스케줄링과 스트림](https://nvidia.github.io/cuda-rust/cuda-oxide/async-programming/scheduling-and-streams.html)을, 실행 가능한 전체 구현은 [`pinned_overlap` 예제](https://github.com/NVIDIA/cuda-rust/tree/main/cuda-oxide/crates/rustc-codegen-cuda/examples/pinned_overlap)를 참조하세요.
+낮은 수준의 스트림 모델은 [스케줄링과 스트림](scheduling-and-streams)을, 실행 가능한 전체 구현은 [`pinned_overlap` 예제](https://github.com/NVIDIA/cuda-rust/tree/main/cuda-oxide/crates/rustc-codegen-cuda/examples/pinned_overlap)를 참조하세요.
